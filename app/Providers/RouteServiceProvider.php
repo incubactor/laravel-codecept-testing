@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use Dispatcher\OpenApi\Route\DefaultRouteInjector;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Lab\Application\Bridge\LaravelBridge;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -65,9 +67,15 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
-        Route::prefix('api')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
-    }
+        $openApiFile = base_path('resources/routes.json');
+        $openApiConfigParser = \Dispatcher\OpenApi\ParserFactory::parserFor($openApiFile);
+        $openApiConfig = $openApiConfigParser->parse($openApiFile);
+        $applicationBridge = new LaravelBridge(
+            $this->app
+        );
+        $routesInjector = new DefaultRouteInjector();
+        $openApiDispatcher = new \Dispatcher\OpenApi\OpenApiDispatcher($routesInjector);
+        $openApiDispatcher->InjectRoutesFromConfig($applicationBridge, $openApiConfig);
+
+     }
 }

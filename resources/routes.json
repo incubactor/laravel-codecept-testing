@@ -1,0 +1,122 @@
+{
+  "openapi" : "3.0.0",
+  "servers" : [ {
+    "url" : "https://sampleapp.local/"
+  }, {
+    "url" : "http://sampleapp.local/"
+  } ],
+  "info" : {
+    "description" : "Here it will go the description of your application.You can edit your\nspecification on here http://editor.swagger.io/. Your API could be exposed\nalso on the same plattform.\n",
+    "version" : "1.0",
+    "title" : "Hello world",
+    "termsOfService" : "http://swagger.io/terms/",
+    "contact" : {
+      "email" : "virgilio@posteo.de"
+    },
+    "license" : {
+      "name" : "LGPL",
+      "url" : "https://www.gnu.org/copyleft/lesser.html"
+    },
+    "x-custom-info" : {
+      "security" : {
+        "jwtAuthentication": {
+          "middleware" : "jwt",
+          "namespace" : "App\\Http\\Controllers"
+        }
+      },
+      "api" : {
+          "middleware" : "api",
+          "prefix": "api"
+      },
+      "jwt" : {
+          "middleware" : "jwt.auth"
+      },
+      "*" : {
+        "namespace" : "App\\Http\\Controllers"
+      }
+    }
+  },
+  "tags" : [ {
+    "name" : "framework"
+  } ],
+  "paths" : {
+    "/auth": {
+      "post": {
+        "tags": [
+          "login",
+          "api"
+        ],
+        "summary": "As you may see, the operationId will be evaluated by Lumen pointing to the auth method in the AuthController",
+        "description": "login action",
+        "operationId": "AuthController@auth",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid Greeting Suplied"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": [
+          "user",
+          "api",
+          "jwt"
+        ],
+        "summary": "In this case we're pointing to a CommandHandler identified by operationId",
+        "description": "login action",
+        "operationId": "GetUser",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid Greeting Suplied"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        }
+      }
+    },
+    "/user/articles": {
+      "post": {
+        "tags": [
+          "articles",
+          "api",
+          "jwt"
+        ],
+        "summary": "As you may see, the operationId will be evaluated by Lumen pointing to the auth method in the AuthController",
+        "description": "login action",
+        "operationId": "ArticleController@store",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid Greeting Suplied"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        }
+      }
+    }
+},
+  "components" : {
+    "schemas" : { },
+    "securitySchemes" : {
+      "-jwtAuthentication" : {
+        "type" : "http",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    }
+  }
+}
