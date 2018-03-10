@@ -7,7 +7,7 @@
     "require": {
         "php": ">=5.6.4",
         "dispatcher/open-api": "^1.0",
-	    "application-bridge-laravel/application-bridge-laravel": "^1.0",
+        "application-bridge-laravel/application-bridge-laravel": "^1.0",
         "laravel/tinker": "~1.0",
         "tymon/jwt-auth": "0.5.*"
     },
