@@ -8,6 +8,7 @@ Coding exercise & automated API testing Laravel using JWT and Codeception.
 + Run `composer install`
 
 # Database
+
 When using sqllite then:
 + Create `database.sqlite` inside database directory
 
@@ -23,9 +24,12 @@ Query OK, 0 rows affected (0.02 sec)
 
 mysql> quit 
 
-php artisan make:migration create_users_table
 ```
 
+In any case, whatever database you decide to use, in the end run:
+```
+php artisan migrate
+```
 ## Run Tests
 Simply run `./vendor/bin/codecept run api`
 
